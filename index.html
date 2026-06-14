@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>CianOS Ultra V3 // ANIME GOD UI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="app-container" class="hud-container">
+        
+        <header class="hud-header">
+            <div class="user-profile-summary">
+                <div class="avatar-glow-ring">
+                    <div class="avatar-fallback">E</div>
+                </div>
+                <div class="user-meta">
+                    <div class="player-title" id="hud-player-title">MONARCH</div>
+                    <div class="player-rank-badge" id="hud-player-rank">RANK E</div>
+                </div>
+            </div>
+            
+            <div class="global-currencies">
+                <div class="currency-pill gold-pill" id="action-trigger-gold-shop">
+                    <i class="fa-solid fa-coins gold-glow-icon"></i>
+                    <span id="hud-currency-gold" class="currency-value">0</span>
+                </div>
+                <div class="currency-pill crystal-pill">
+                    <i class="fa-solid fa-gem crystal-glow-icon"></i>
+                    <span id="hud-currency-crystals" class="currency-value">0</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="hud-progression-panel">
+            <div class="level-matrix">
+                <span class="lvl-label">LVL</span>
+                <span class="lvl-number" id="hud-level-display">01</span>
+            </div>
+            <div class="xp-bar-wrapper">
+                <div class="xp-bar-container">
+                    <div class="xp-bar-fill" id="hud-xp-fill" style="width: 0%;"></div>
+                    <div class="xp-bar-glare"></div>
+                </div>
+                <div class="xp-data-row">
+                    <span id="hud-xp-string">0 / 100 XP</span>
+                    <span id="hud-xp-percentage">0%</span>
+                </div>
+            </div>
+        </section>
+
+        <main id="view-viewport" class="viewport-canvas">
+            
+            <div id="view-dashboard" class="app-view dynamic-view-active">
+                <div class="panel-section-title">SYSTEM STATUS</div>
+                
+                <div class="status-grid">
+                    <div class="status-card vital-hp">
+                        <div class="card-header"><span class="label">HP</span><span id="dash-hp-text" class="value">100 / 100</span></div>
+                        <div class="bar-container"><div id="dash-hp-fill" class="bar-fill" style="width: 100%;"></div></div>
+                    </div>
+                    <div class="status-card vital-mp">
+                        <div class="card-header"><span class="label">MP</span><span id="dash-mp-text" class="value">100 / 100</span></div>
+                        <div class="bar-container"><div id="dash-mp-fill" class="bar-fill" style="width: 100%;"></div></div>
+                    </div>
+                </div>
+
+                <div class="stats-radar-panel">
+                    <h3>ABILITY CORE SCORE</h3>
+                    <div class="stats-listing">
+                        <div class="stat-row" data-stat="str"><span><i class="fa-solid fa-dumbbell"></i> STRENGTH</span><b id="stat-str">10</b><button class="stat-up-btn" data-stat-target="str">+</button></div>
+                        <div class="stat-row" data-stat="vit"><span><i class="fa-solid fa-shield-halved"></i> VITALITY</span><b id="stat-vit">10</b><button class="stat-up-btn" data-stat-target="vit">+</button></div>
+                        <div class="stat-row" data-stat="agi"><span><i class="fa-solid fa-bolt"></i> AGILITY</span><b id="stat-agi">10</b><button class="stat-up-btn" data-stat-target="agi">+</button></div>
+                        <div class="stat-row" data-stat="int"><span><i class="fa-solid fa-brain"></i> INTELLIGENCE</span><b id="stat-int">10</b><button class="stat-up-btn" data-stat-target="int">+</button></div>
+                    </div>
+                    <div class="stat-points-pool">AVAILABLE POINTS: <span id="stat-points-value">0</span></div>
+                </div>
+
+                <div class="daily-streak-hud-widget">
+                    <div class="widget-header">
+                        <span><i class="fa-solid fa-fire active-streak-fire"></i> DAILY PROTOCOL STREAK</span>
+                        <span id="dash-streak-count" class="streak-count-highlight">0 DAYS</span>
+                    </div>
+                    <div class="streak-grid-row" id="dash-streak-grid">
+                        </div>
+                </div>
+            </div>
+
+            <div id="view-quests" class="app-view">
+                <div class="panel-section-title">ACTIVE CAMPAIGNS</div>
+                <div class="quest-filter-tabs">
+                    <button class="filter-tab active-tab" data-filter="daily">DAILY</button>
+                    <button class="filter-tab" data-filter="side">SIDE</button>
+                    <button class="filter-tab" data-filter="completed">ARCHIVE</button>
+                </div>
+                <div id="quest-list-target" class="scrollable-list-container">
+                    </div>
+            </div>
+
+            <div id="view-boss" class="app-view">
+                <div class="panel-section-title">DUNGEON RAID GATE</div>
+                <div id="boss-raid-container" class="boss-active-raid-card">
+                    </div>
+            </div>
+
+            <div id="view-skills" class="app-view">
+                <div class="panel-section-title">SKILL TREE / PERKS</div>
+                <div id="skills-list-target" class="scrollable-list-container">
+                    </div>
+            </div>
+
+            <div id="view-vocab" class="app-view">
+                <div class="panel-section-title">MEMORIZATION VAULT</div>
+                <div class="vocab-controls">
+                    <button class="action-hud-btn-primary" id="btn-vocab-add-modal"><i class="fa-solid fa-plus"></i> ENGRAVE NEW WORD</button>
+                </div>
+                <div id="vocab-list-target" class="scrollable-list-container">
+                    </div>
+            </div>
+
+            <div id="view-shop" class="app-view">
+                <div class="panel-section-title">SYSTEM INVENTORY & EXCHANGE</div>
+                <div class="shop-tabs">
+                    <button class="shop-tab-btn active-tab" data-shop-cat="gear">EQUIPMENT</button>
+                    <button class="shop-tab-btn" data-shop-cat="potions">POTIONS</button>
+                </div>
+                <div id="shop-items-target" class="shop-items-grid">
+                    </div>
+            </div>
+
+            <div id="view-profile" class="app-view">
+                <div class="panel-section-title">HUNTER REGISTRY DOSSIER</div>
+                <div class="profile-card-grand">
+                    <div class="profile-dossier-row"><span>CODENAME:</span><strong id="prof-codename">MONARCH</strong></div>
+                    <div class="profile-dossier-row"><span>RANKING:</span><strong id="prof-rank" class="rank-highlight-text">E-RANK</strong></div>
+                    <div class="profile-dossier-row"><span>TOTAL QUESTS SOLVED:</span><span id="prof-total-quests" class="numeric">0</span></div>
+                    <div class="profile-dossier-row"><span>DUNGEONS CLEARED:</span><span id="prof-total-bosses" class="numeric">0</span></div>
+                    <div class="profile-dossier-row"><span>WORDS MEMORIZED:</span><span id="prof-total-vocab" class="numeric">0</span></div>
+                </div>
+                <div class="system-reset-zone">
+                    <button id="btn-danger-purge-system" class="danger-zone-btn"><i class="fa-solid fa-radiation"></i> PURGE PROTOCOL DATA</button>
+                </div>
+            </div>
+
+        </main>
+
+        <nav class="hud-navigation-dock">
+            <a href="#/dashboard" class="nav-node active-node" data-route="dashboard">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>CORE</span>
+            </a>
+            <a href="#/quests" class="nav-node" data-route="quests">
+                <i class="fa-solid fa-scroll"></i>
+                <span>QUESTS</span>
+            </a>
+            <a href="#/boss" class="nav-node" data-route="boss">
+                <i class="fa-solid fa-skull"></i>
+                <span>BOSS</span>
+            </a>
+            <a href="#/skills" class="nav-node" data-route="skills">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>SKILLS</span>
+            </a>
+            <a href="#/vocab" class="nav-node" data-route="vocab">
+                <i class="fa-solid fa-book-intellectual"></i>
+                <span>VOCAB</span>
+            </a>
+            <a href="#/shop" class="nav-node" data-route="shop">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>SHOP</span>
+            </a>
+            <a href="#/profile" class="nav-node" data-route="profile">
+                <i class="fa-solid fa-user-gear"></i>
+                <span>DATA</span>
+            </a>
+        </nav>
+
+        <div id="toast-notification-hub" class="toast-overlay-anchor"></div>
+
+        <div id="modal-level-up-cinematic" class="cinematic-modal-overlay system-hidden">
+            <div class="cinematic-level-content">
+                <div class="level-up-glow-flare"></div>
+                <h1 class="cinematic-title-level">LEVEL UP</h1>
+                <div class="sub-text">THE SYSTEM HAS EVOLVED YOUR PATTERN</div>
+                <div class="stat-boosts-summary-list" id="level-up-stat-gains">
+                    </div>
+                <button class="dismiss-hud-modal-btn" id="btn-close-lvl-modal">PROCEED</button>
+            </div>
+        </div>
+
+        <div id="modal-vocab-add" class="cinematic-modal-overlay system-hidden">
+            <div class="hud-dialog-box">
+                <h3>ENGRAVE TO SYSTEM CORE</h3>
+                <div class="input-group-hud">
+                    <label>TARGET WORD / PHRASE</label>
+                    <input type="text" id="input-vocab-word" placeholder="e.g., Arise" autocomplete="off">
+                </div>
+                <div class="input-group-hud">
+                    <label>TRANSLATION / CODEX MEANING</label>
+                    <input type="text" id="input-vocab-definition" placeholder="e.g., To wake from sleep or death." autocomplete="off">
+                </div>
+                <div class="dialog-actions-row">
+                    <button class="hud-btn-cancel" id="btn-vocab-cancel">ABORT</button>
+                    <button class="hud-btn-confirm" id="btn-vocab-save">COMMIT</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
